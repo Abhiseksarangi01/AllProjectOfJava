@@ -1,0 +1,67 @@
+package com.java.Day5;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+
+class Employ implements Serializable{
+    String id;
+    String firstName;
+    String lastName;
+    public Employ(String id, String firstName, String lastName) {
+        super();
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    @Override
+    public String toString() {
+        return "Employ [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+    }
+    
+    
+
+    
+    
+}
+
+public class SerAndDeserOfArrayList {
+	public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ArrayList<Employ> employees = new ArrayList<Employ>();
+        employees.add(new Employ("1", "Sunil", "Kumar"));
+        employees.add(new Employ("2", "Harish", "Kumar"));
+        employees.add(new Employ("3", "Abhisek","Sarangi"));
+        try {
+            FileOutputStream fos = new FileOutputStream("C:\\Users\\abhiseks\\Desktop\\Sample\\SerAndDeserOfArrayList.txt");
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+            oos.writeObject(employees);
+            oos.close();
+            fos.close();
+            System.out.println("SuccessFully Serilized the Employ Data ");
+            ArrayList<Employ> nameList = new ArrayList<Employ>();
+            System.out.println("after Deserilization of the Employ Data is ");
+            
+//        Deserilization Of the Employee Data
+            
+            FileInputStream fis = new FileInputStream("C:\\Users\\abhiseks\\Desktop\\Sample\\SerAndDeserOfArrayList.txt");
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            nameList = (ArrayList<Employ>) ois.readObject();
+            ois.close();
+            fis.close();
+            
+            for(Employ name : nameList) {
+                System.out.println(name);
+            }
+        } catch (FileNotFoundException e) {
+            
+            e.printStackTrace();
+        }
+    }
+}
+
+
